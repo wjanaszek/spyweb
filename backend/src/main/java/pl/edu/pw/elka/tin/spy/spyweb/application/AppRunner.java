@@ -1,4 +1,4 @@
-package pl.edu.pw.elka.tin.spy.spyweb;
+package pl.edu.pw.elka.tin.spy.spyweb.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
