@@ -6,27 +6,29 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "USERS")
-public class User implements Serializable {
+@Table(name = "CLIENTS")
+public class Client {
     @Id
-    private Integer id;
-    private String login;
-    private String password;
-    private boolean isLoggedIn;
+    private int id;
+    private String ip;
+    private String status;
+    @OneToMany
+    private List<Task> taskList;
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Client{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", ip='" + ip + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
