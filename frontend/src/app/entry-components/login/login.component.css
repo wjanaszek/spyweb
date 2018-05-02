@@ -1,0 +1,32 @@
+.login-page {
+  max-width: 700px;
+}
+
+.login-page__card {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  margin-left: 30px;
+}
+
+.title-login {
+  margin-left: 15px;
+}
+
+.logo {
+  position: absolute;
+  top: 45px;
+}
+
+.login-button {
+  margin-left: 25px;
+  margin-bottom: 10px;
+}
+
+.login-error {
+  color: red;
+}

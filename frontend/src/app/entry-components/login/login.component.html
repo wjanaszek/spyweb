@@ -1,0 +1,40 @@
+<div class="container login-page login-page__card">
+  <div class="logo">
+    <img src="../../../assets/spy-web.png">
+  </div>
+  <div>
+    <mat-card>
+      <form [formGroup]="form">
+        <mat-card-title class="title-login">Log in to Spy web</mat-card-title>
+        <mat-card-content>
+          <mat-form-field class="col-md-10">
+            <input matInput formControlName="login" placeholder="Login">
+            <mat-hint>
+              <mat-error *ngIf="form.get('login').touched && form.get('login').hasError('required')">This field is
+                required
+              </mat-error>
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field class="col-md-10">
+            <input matInput formControlName="password" type="password" placeholder="Password">
+            <mat-hint>
+              <mat-error *ngIf="form.get('password').touched && form.get('password').hasError('required')">This field is
+                required
+              </mat-error>
+            </mat-hint>
+          </mat-form-field>
+          <div *ngIf="loginError" class="login-error">
+            <p>Login or password invalid</p>
+          </div>
+        </mat-card-content>
+      </form>
+      <mat-card-actions>
+        <div class="login-button">
+          <button mat-button (click)="submit()" [disabled]="form.invalid">
+            LOGIN
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

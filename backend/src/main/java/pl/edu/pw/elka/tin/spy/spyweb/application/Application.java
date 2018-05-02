@@ -1,12 +1,14 @@
 package pl.edu.pw.elka.tin.spy.spyweb.application;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppRunner {
+@EnableAutoConfiguration
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppRunner.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
