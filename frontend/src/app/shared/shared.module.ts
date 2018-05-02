@@ -5,6 +5,8 @@ import {
   MatCardModule,
   MatIconModule,
   MatInputModule,
+  MatMenuModule,
+  MatTableModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -20,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatTableModule,
+    MatMenuModule,
     MatIconModule,
     ReactiveFormsModule,
     RouterModule,
@@ -33,6 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatTableModule,
+    MatMenuModule,
     MatIconModule,
     ReactiveFormsModule,
     RouterModule,
