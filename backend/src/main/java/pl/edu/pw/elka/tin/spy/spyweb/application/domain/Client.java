@@ -18,7 +18,7 @@ public class Client {
     private int id;
     private String ip;
     private String status;
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private List<Task> taskList;
 
     @Override
