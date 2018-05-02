@@ -11,20 +11,17 @@ import java.io.Serializable;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-@Table(name = "USERS")
-public class User implements Serializable {
+@Table(name = "TASKS")
+public class Task implements Serializable {
     @Id
-    private Integer id;
-    private String login;
-    private String password;
-    private boolean isLoggedIn;
+    private int id;
+    private String status;
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Task{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

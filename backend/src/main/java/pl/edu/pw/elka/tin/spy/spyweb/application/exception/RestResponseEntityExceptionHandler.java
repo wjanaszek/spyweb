@@ -1,4 +1,4 @@
-package pl.edu.pw.elka.tin.spy.spyweb.application;
+package pl.edu.pw.elka.tin.spy.spyweb.application.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { IllegalStateException.class })
+    @ExceptionHandler(value = { IllegalStateException.class, ResourceNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Element not found";
         return handleExceptionInternal(ex, bodyOfResponse,
