@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>Details of client</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let task of tasks">
+        {{ task.id }}, {{ task.status }}
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

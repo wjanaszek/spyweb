@@ -20,7 +20,7 @@ export class HomeDataService {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.log(error);
-          return new ErrorObservable("error");
+          return new ErrorObservable(error);
         })
       );
   }
@@ -36,6 +36,17 @@ export class HomeDataService {
             client.status = c.status;
             return client;
           });
+        }),
+        catchError((error: HttpErrorResponse) => of(error))
+      );
+  }
+
+  loadClientById(id: number): Observable<any> {
+    return this.http.get(appConfig.endpoints.loadClientById.replace(':id', id.toString()))
+      .pipe(
+        map((res) => {
+          // @TODO make this Client object, not JS object
+         return Client.deserialize<Client>(res);
         }),
         catchError((error: HttpErrorResponse) => of(error))
       );

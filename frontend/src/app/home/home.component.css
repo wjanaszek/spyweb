@@ -6,3 +6,7 @@
   overflow: auto;
   max-height: 500px;
 }
+
+.no-cursor-change {
+  cursor: default;
+}
