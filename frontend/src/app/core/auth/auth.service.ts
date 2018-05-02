@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { of } from 'rxjs/observable/of';
 import { User } from '../../shared/models/user.model';
 import { appConfig } from '../../app-config';
@@ -16,13 +15,11 @@ export class AuthService {
   logIn(user: User): Observable<any> {
     return this.http.post(appConfig.endpoints.login, user)
       .pipe(
-        map((res) => {
-          console.log('logged in', res);
-          return of(res);
+        map((res: User) => {
+          return res;
         }),
-        catchError((error) => {
-          console.log('error', error);
-          return new EmptyObservable();
+        catchError((error: HttpErrorResponse) => {
+          return of(error);
         })
       )
   }

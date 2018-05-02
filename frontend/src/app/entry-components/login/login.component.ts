@@ -14,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+  loginError: boolean;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
+    this.loginError = false;
     const user = new User();
     user.login = this.form.get('login').value;
     user.password = this.form.get('password').value;
@@ -40,12 +42,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.ngUnsubscribe)
       )
-      .subscribe(result => {
-        if (result) {
-          console.log(result);
-          localStorage.setItem('userId', result);
+      .subscribe((result: any) => {
+        if (result.id > 0) {
+          localStorage.setItem('userId', result.id.toString());
           this.router.navigate([ '/home' ]);
         } else {
+          this.loginError = true;
           console.log('error while logging in');
         }
       });

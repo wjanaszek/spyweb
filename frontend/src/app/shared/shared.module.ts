@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatInputModule,
+  MatToolbarModule,
+  MatTooltipModule
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatIconModule,
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
@@ -21,6 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatIconModule,
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
