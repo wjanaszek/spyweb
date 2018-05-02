@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,6 +14,7 @@ import java.util.List;
 @Table(name = "CLIENTS")
 public class Client {
     @Id
+    @GeneratedValue
     private int id;
     private String ip;
     private String status;

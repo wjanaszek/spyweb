@@ -16,8 +16,8 @@ import java.io.Serializable;
 @Table(name = "TASKS")
 public class Task implements Serializable {
     @Id
+    @GeneratedValue
     private int id;
-    // @TODO Change this status to another enum
     private String status;
 
     @ManyToOne

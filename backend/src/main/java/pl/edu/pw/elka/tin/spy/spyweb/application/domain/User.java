@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Table(name = "USERS")
 public class User implements Serializable {
     @Id
+    @GeneratedValue
     private Integer id;
     private String login;
     private String password;

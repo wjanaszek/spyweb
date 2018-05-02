@@ -1,5 +1,6 @@
 package pl.edu.pw.elka.tin.spy.spyweb.application;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/clients")
+@Slf4j
 class ClientController {
 
     @Autowired
@@ -27,12 +29,12 @@ class ClientController {
     }
 
     @PostMapping("/{id}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTaskToClient(@PathVariable Integer id) throws ResourceNotFoundException {
+    public Task addTaskToClient(@PathVariable Integer id) throws ResourceNotFoundException {
         Client client = clientRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
-        this.taskRepository.save(new Task.TaskBuilder(Status.NEW.getText(), client).build());
+        log.info("Creating task to client " + client.toString());
+        return this.taskRepository.save(new Task.TaskBuilder(Status.NEW.getText(), client).build());
     }
 
     @GetMapping("/{id}")

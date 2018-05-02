@@ -5,11 +5,24 @@ import { appConfig } from '../app-config';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Client } from '../shared/models/client.model';
+import { TaskType } from '../shared/enums/task-type.enum';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class HomeDataService {
 
   constructor(private http: HttpClient) {
+  }
+
+  // @TODO add task type when another task than taking photo available
+  dispatchTask(taskType: TaskType, client: Client): Observable<any> {
+    return this.http.post(appConfig.endpoints.dispatchTaskToClient.replace(':id', client.id.toString()), { taskType: taskType })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.log(error);
+          return new ErrorObservable("error");
+        })
+      );
   }
 
   loadAllClients(): Observable<any> {
