@@ -2,8 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../core/auth/auth.guard';
-import { ClientDetailComponent } from './client-detail/client-detail.component';
-import { ClientListComponent } from './client-list/client-list.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 const routes: Routes = [
   {
@@ -12,16 +12,16 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
     children: [
       {
-        path: 'clients',
-        component: ClientListComponent
+        path: 'users',
+        component: UserListComponent
       },
       {
-        path: 'clients/:id',
-        component: ClientDetailComponent
+        path: 'users/:id',
+        component: UserDetailComponent
       },
       {
         path: '',
-        redirectTo: 'clients',
+        redirectTo: 'users',
         pathMatch: 'full'
       }
     ]

@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { User } from '../../shared/models/user.model';
 import { appConfig } from '../../app-config';
+import { Admin } from '../../shared/models/admin.model';
 
 @Injectable()
 export class AuthService {
@@ -12,10 +12,10 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  logIn(user: User): Observable<any> {
-    return this.http.post(appConfig.endpoints.login, user)
+  logIn(admin: Admin): Observable<any> {
+    return this.http.post(appConfig.endpoints.login, admin)
       .pipe(
-        map((res: User) => {
+        map((res: Admin) => {
           return res;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -26,6 +26,6 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     // @TODO change this to token?
-    return !!localStorage.getItem('userId');
+    return !!localStorage.getItem('adminId');
   }
 }

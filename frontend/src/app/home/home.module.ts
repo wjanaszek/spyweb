@@ -5,8 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeDataService } from './home-data.service';
-import { ClientDetailComponent } from './client-detail/client-detail.component';
-import { ClientListComponent } from './client-list/client-list.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   imports: [
@@ -17,8 +17,8 @@ import { ClientListComponent } from './client-list/client-list.component';
   ],
   declarations: [
     HomeComponent,
-    ClientDetailComponent,
-    ClientListComponent
+    UserDetailComponent,
+    UserListComponent
   ],
   providers: [
     HomeDataService

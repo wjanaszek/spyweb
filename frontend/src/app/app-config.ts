@@ -3,9 +3,9 @@ import { environment } from '../environments/environment';
 export namespace appConfig {
   export const endpoints = {
     login: environment.apiUrl + 'login',
-    loadAllClients: environment.apiUrl + 'clients/',
-    loadClientById: environment.apiUrl + 'clients/:id',
-    dispatchTaskToClient: environment.apiUrl + 'clients/:id'
+    loadAllUsers: environment.apiUrl + 'users',
+    loadUserById: environment.apiUrl + 'users/:id',
+    dispatchTaskToUser: environment.apiUrl + 'users/:id'
   };
   export const constValues = {
     refreshingFrequency: 30 * 1000,

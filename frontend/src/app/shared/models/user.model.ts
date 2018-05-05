@@ -1,10 +1,13 @@
-export class User {
+import { Model } from './model';
+import { Task } from './task.model';
 
+export class User extends Model {
   id: number;
-  login: string;
-  password: string;
-  isLoggedIn = false;
+  name: string;
+  status: string;
+  taskList: Task[] = [];
 
   constructor() {
+    super();
   }
 }

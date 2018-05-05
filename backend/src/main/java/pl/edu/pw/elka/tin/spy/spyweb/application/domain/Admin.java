@@ -1,6 +1,5 @@
 package pl.edu.pw.elka.tin.spy.spyweb.application.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,42 +7,36 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "USERS")
-public class User implements Serializable {
+@Table(name = "ADMINS")
+public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @NotNull
     @Column(unique = true,
             columnDefinition = "VARCHAR2(128)")
-    private String name;
+    private String login;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR2(128)")
-    @JsonIgnore
     private String password;
 
-    @NotNull
-    @Column(columnDefinition = "VARCHAR2(16) default 'LOGOUT'")
-    private String status;
-
-    @OneToMany(mappedBy = "user")
-    private List<Task> taskList;
+    @Column(name = "logged_in",
+            columnDefinition = "BOOLEAN default false")
+    private Boolean loggedIn = false;
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Admin{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
                 '}';
     }
 }

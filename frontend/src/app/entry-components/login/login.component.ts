@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../shared/models/user.model';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { Admin } from '../../shared/models/admin.model';
 
 @Component({
   selector: 'spy-login',
@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.form = this.fb.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required]
+      login: [ '', Validators.required ],
+      password: [ '', Validators.required ]
     });
   }
 
@@ -35,16 +35,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit(): void {
     this.loginError = false;
-    const user = new User();
-    user.login = this.form.get('login').value;
-    user.password = this.form.get('password').value;
-    this.authService.logIn(user)
+    const admin = new Admin();
+    admin.login = this.form.get('login').value;
+    admin.password = this.form.get('password').value;
+    this.authService.logIn(admin)
       .pipe(
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe((result: any) => {
         if (result.id > 0) {
-          localStorage.setItem('userId', result.id.toString());
+          localStorage.setItem('adminId', result.id.toString());
           this.router.navigate([ '/home' ]);
         } else {
           this.loginError = true;

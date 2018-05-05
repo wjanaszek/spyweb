@@ -1,31 +1,48 @@
 package pl.edu.pw.elka.tin.spy.spyweb.application;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pw.elka.tin.spy.spyweb.application.domain.User;
-import pl.edu.pw.elka.tin.spy.spyweb.application.domain.UserRepository;
+import pl.edu.pw.elka.tin.spy.spyweb.application.domain.*;
 import pl.edu.pw.elka.tin.spy.spyweb.application.exception.ResourceNotFoundException;
 import pl.edu.pw.elka.tin.spy.spyweb.utils.RestPreconditions;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/users")
+@Slf4j
 class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
-    @PostMapping("/login")
+    @GetMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public User logIn(@RequestBody User user) throws ResourceNotFoundException {
-        User toCheck = RestPreconditions.checkFound(this.userRepository.findByLogin(user.getLogin()));
-        if (toCheck != null && toCheck.getPassword().equals(user.getPassword())) {
-            toCheck.setLoggedIn(true);
-            return userRepository.save(toCheck);
-        } else {
-            throw new ResourceNotFoundException();
-        }
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
+
+    @PostMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Task addTaskToUser(@PathVariable Integer id) throws ResourceNotFoundException {
+        User user = userRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        log.info("Creating task for user " + user.toString());
+        return this.taskRepository.save(new Task.TaskBuilder(user, "task name").build());
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public User getUser(@PathVariable Integer id) throws ResourceNotFoundException {
+        return RestPreconditions.checkFound(this.userRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new));
+    }
+
 }

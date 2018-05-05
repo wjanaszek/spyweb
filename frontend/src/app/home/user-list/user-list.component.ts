@@ -4,21 +4,21 @@ import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import { appConfig } from '../../app-config';
 import { takeUntil } from 'rxjs/operators';
-import { Client } from '../../shared/models/client.model';
 import { TaskType } from '../../shared/enums/task-type.enum';
 import { Router } from '@angular/router';
+import { User } from '../../shared/models/user.model';
 
 @Component({
-  selector: 'spy-client-list',
-  templateUrl: './client-list.component.html',
-  styleUrls: [ './client-list.component.css' ]
+  selector: 'spy-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: [ './user-list.component.css' ]
 })
-export class ClientListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit, OnDestroy {
 
-  clients: Client[] = [];
-  clientMenu: Client;
-  dataSource = new MatTableDataSource<Client>();
-  displayedColumns = [ 'id', 'actions' ];
+  users: User[] = [];
+  dataSource = new MatTableDataSource<User>();
+  displayedColumns = [ 'id', 'name', 'status', 'actions' ];
+  menuUser: User;
   taskType = TaskType;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -35,8 +35,12 @@ export class ClientListComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
+  details(user: User): void {
+    this.router.navigate([ '/home/users', user.id.toString() ]);
+  }
+
   dispatchTask(taskType: TaskType): void {
-    this.homeDataService.dispatchTask(taskType, this.clientMenu)
+    this.homeDataService.dispatchTask(taskType, this.menuUser)
       .pipe(
         takeUntil(this.ngUnsubscribe)
       )
@@ -49,35 +53,31 @@ export class ClientListComponent implements OnInit, OnDestroy {
       });
   }
 
-  onDoubleClick(client: Client): void {
-    this.router.navigate(['/home/clients', client.id.toString()]);
-  }
-
   onMenuClosed(): void {
-    this.clientMenu = null;
+    this.menuUser = null;
   }
 
-  onMenuOpened(client: Client): void {
-    this.clientMenu = client;
+  onMenuOpened(user: User): void {
+    this.menuUser = user;
   }
 
   private loadAndRefreshData(): void {
-    this.homeDataService.loadAllClients()
+    this.homeDataService.loadAllUsers()
       .pipe(
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(data => {
-        this.clients = data;
+        this.users = data;
         this.dataSource.data = data;
       });
 
     setInterval(() => {
-      this.homeDataService.loadAllClients()
+      this.homeDataService.loadAllUsers()
         .pipe(
           takeUntil(this.ngUnsubscribe)
         )
         .subscribe(data => {
-          this.clients = data;
+          this.users = data;
           this.dataSource.data = data;
         });
     }, appConfig.constValues.refreshingFrequency);

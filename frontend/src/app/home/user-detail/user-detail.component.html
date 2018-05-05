@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-title>Details of user</mat-card-title>
+  <mat-card-content>
+    <mat-table [dataSource]="dataSource">
+      <!-- ID COLUMN -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{ task.id }}</mat-cell>
+      </ng-container>
+
+      <!-- NAME COLUMN -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{ task.name }}</mat-cell>
+      </ng-container>
+
+      <!-- STATUS COLUMN -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{ task.status }}</mat-cell>
+      </ng-container>
+
+      <!-- ACTIONS COLUMN -->
+      <ng-container matColumnDef="result">
+        <mat-header-cell *matHeaderCellDef>Result</mat-header-cell>
+        <mat-cell *matCellDef="let task">
+          Result of task will be here
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let task; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

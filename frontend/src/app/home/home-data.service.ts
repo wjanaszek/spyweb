@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { appConfig } from '../app-config';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { Client } from '../shared/models/client.model';
 import { TaskType } from '../shared/enums/task-type.enum';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { User } from '../shared/models/user.model';
 
 @Injectable()
 export class HomeDataService {
@@ -15,8 +15,8 @@ export class HomeDataService {
   }
 
   // @TODO add task type when another task than taking photo available
-  dispatchTask(taskType: TaskType, client: Client): Observable<any> {
-    return this.http.post(appConfig.endpoints.dispatchTaskToClient.replace(':id', client.id.toString()), { taskType: taskType })
+  dispatchTask(taskType: TaskType, user: User): Observable<any> {
+    return this.http.post(appConfig.endpoints.dispatchTaskToUser.replace(':id', user.id.toString()), { taskType: taskType })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.log(error);
@@ -25,28 +25,24 @@ export class HomeDataService {
       );
   }
 
-  loadAllClients(): Observable<any> {
-    return this.http.get(appConfig.endpoints.loadAllClients)
+  loadAllUsers(): Observable<any> {
+    return this.http.get(appConfig.endpoints.loadAllUsers)
       .pipe(
         map((res: any[]) => {
           return res.map(c => {
-            const client = new Client();
-            client.id = c.id;
-            client.ip = c.ip;
-            client.status = c.status;
-            return client;
+            return User.deserialize<User>(c);
           });
         }),
         catchError((error: HttpErrorResponse) => of(error))
       );
   }
 
-  loadClientById(id: number): Observable<any> {
-    return this.http.get(appConfig.endpoints.loadClientById.replace(':id', id.toString()))
+  loadUserById(id: number): Observable<any> {
+    return this.http.get(appConfig.endpoints.loadUserById.replace(':id', id.toString()))
       .pipe(
         map((res) => {
           // @TODO make this Client object, not JS object
-         return Client.deserialize<Client>(res);
+          return User.deserialize<User>(res);
         }),
         catchError((error: HttpErrorResponse) => of(error))
       );
