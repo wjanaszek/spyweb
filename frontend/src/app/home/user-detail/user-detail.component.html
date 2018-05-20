@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>Details of user</mat-card-title>
+  <mat-card-title>Details of user {{ userName }}</mat-card-title>
   <mat-card-content>
     <mat-table [dataSource]="dataSource">
       <!-- ID COLUMN -->
@@ -20,11 +20,28 @@
         <mat-cell *matCellDef="let task">{{ task.status }}</mat-cell>
       </ng-container>
 
-      <!-- ACTIONS COLUMN -->
+      <!-- CREATION COLUMN -->
+      <ng-container matColumnDef="creationTime">
+        <mat-header-cell *matHeaderCellDef>Creation time</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{ task.creationTimestamp | date: dateFormat }}</mat-cell>
+      </ng-container>
+
+      <!-- UPDATE COLUMN -->
+      <ng-container matColumnDef="updateTime">
+        <mat-header-cell *matHeaderCellDef>Last update time</mat-header-cell>
+        <mat-cell *matCellDef="let task">{{ task.lastUpdateTimestamp | date: dateFormat }}</mat-cell>
+      </ng-container>
+
+      <!-- RESULT COLUMN -->
       <ng-container matColumnDef="result">
         <mat-header-cell *matHeaderCellDef>Result</mat-header-cell>
         <mat-cell *matCellDef="let task">
-          Result of task will be here
+          <button *ngIf="task.fileUrl; else notFinished" mat-raised-button (click)="openPreview(task)">
+            See photo
+          </button>
+          <ng-template #notFinished>
+            No result available
+          </ng-template>
         </mat-cell>
       </ng-container>
 
@@ -33,3 +50,8 @@
     </mat-table>
   </mat-card-content>
 </mat-card>
+
+<ngx-image-gallery
+  [images]="images"
+  [conf]="conf">
+</ngx-image-gallery>

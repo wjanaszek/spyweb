@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { TaskType } from '../../shared/enums/task-type.enum';
 import { Router } from '@angular/router';
 import { User } from '../../shared/models/user.model';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
 @Component({
   selector: 'spy-user-list',
@@ -27,7 +28,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadAndRefreshData();
+    TimerObservable.create(0, appConfig.constValues.refreshingFrequency)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => this.loadData());
   }
 
   ngOnDestroy(): void {
@@ -61,7 +66,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.menuUser = user;
   }
 
-  private loadAndRefreshData(): void {
+  private loadData(): void {
     this.homeDataService.loadAllUsers()
       .pipe(
         takeUntil(this.ngUnsubscribe)
@@ -70,16 +75,5 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.users = data;
         this.dataSource.data = data;
       });
-
-    setInterval(() => {
-      this.homeDataService.loadAllUsers()
-        .pipe(
-          takeUntil(this.ngUnsubscribe)
-        )
-        .subscribe(data => {
-          this.users = data;
-          this.dataSource.data = data;
-        });
-    }, appConfig.constValues.refreshingFrequency);
   }
 }

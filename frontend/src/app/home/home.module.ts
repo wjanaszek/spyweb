@@ -7,13 +7,15 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeDataService } from './home-data.service';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     CoreModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    NgxImageGalleryModule
   ],
   declarations: [
     HomeComponent,

@@ -15,6 +15,7 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ClickStopPropagation } from './directives/click-stop-propagation.directive';
 
 @NgModule({
   imports: [
@@ -34,7 +35,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  declarations: [],
+  declarations: [
+    ClickStopPropagation
+  ],
   exports: [
     MatCardModule,
     MatInputModule,
@@ -46,6 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSnackBarModule,
     MatIconModule,
     MatListModule,
+    ClickStopPropagation,
     ReactiveFormsModule,
     RouterModule,
     FormsModule,

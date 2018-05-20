@@ -8,7 +8,7 @@ export namespace appConfig {
     dispatchTaskToUser: environment.apiUrl + 'users/:id'
   };
   export const constValues = {
-    refreshingFrequency: 30 * 1000,
+    refreshingFrequency: 15 * 1000,
     notificationDuration: 5 * 1000
   }
 }
