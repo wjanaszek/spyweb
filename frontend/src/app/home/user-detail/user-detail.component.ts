@@ -59,10 +59,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   openPreview(task: Task): void {
-    const index = this.images.findIndex(t => t.url === task.fileUrl);
+    // @TODO very ugly, find better solution
+    const index = this.images.findIndex(t => t.url === 'http://localhost:8080/image/' + task.id);
     if (index > -1) {
       this.gallery.open(index);
     }
+    //window.open('http://localhost:8080/image/' + task.id);
   }
 
   private loadData(id: number): void {
@@ -78,7 +80,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
           .filter(t => t.fileUrl)
           .map(t => {
             return {
-              url: t.fileUrl,
+              url: 'http://localhost:8080/image/' + t.id,
               title: t.name + '(' + t.id + ') result'
             };
           });
