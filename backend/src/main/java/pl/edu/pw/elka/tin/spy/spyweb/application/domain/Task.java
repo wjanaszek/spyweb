@@ -21,7 +21,6 @@ public class Task implements Serializable {
     private int id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     @Column(name = "creation_timestamp",
             columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP",
             insertable = false,
@@ -49,9 +48,11 @@ public class Task implements Serializable {
     @JsonIgnore
     private User user;
 
-    private Task(TaskBuilder taskBuilder) {
-        this.name = taskBuilder.name;
-        this.user = taskBuilder.user;
+    public Task(User user) {
+        this.name = "Get photo";
+        this.creationTimestamp = new Date();
+        this.status = "NEW";
+        this.user = user;
     }
 
     @Override
@@ -65,25 +66,5 @@ public class Task implements Serializable {
                 ", fileUrl='" + fileUrl + '\'' +
                 ", user=" + user +
                 '}';
-    }
-
-    public static class TaskBuilder {
-        private final String name;
-        private final User user;
-        private Date lastUpdateTimestamp;
-
-        public TaskBuilder(User user, String name) {
-            this.user = user;
-            this.name = name;
-        }
-
-        public TaskBuilder setLastUpdateTimestamp(Date lastUpdateTimestamp) {
-            this.lastUpdateTimestamp = lastUpdateTimestamp;
-            return this;
-        }
-
-        public Task build() {
-            return new Task(this);
-        }
     }
 }

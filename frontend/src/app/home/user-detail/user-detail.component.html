@@ -36,7 +36,7 @@
       <ng-container matColumnDef="result">
         <mat-header-cell *matHeaderCellDef>Result</mat-header-cell>
         <mat-cell *matCellDef="let task">
-          <button *ngIf="task.fileUrl; else notFinished" mat-raised-button (click)="openPreview(task)">
+          <button *ngIf="task.fileUrl; else notFinished" mat-button (click)="openPreview(task)">
             See photo
           </button>
           <ng-template #notFinished>

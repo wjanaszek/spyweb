@@ -8,6 +8,7 @@ import pl.edu.pw.elka.tin.spy.spyweb.application.domain.*;
 import pl.edu.pw.elka.tin.spy.spyweb.application.exception.ResourceNotFoundException;
 import pl.edu.pw.elka.tin.spy.spyweb.utils.RestPreconditions;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,9 @@ class UserController {
     public Task addTaskToUser(@PathVariable Integer id) throws ResourceNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
-        log.info("Creating task for user " + user.toString());
-        return this.taskRepository.save(new Task.TaskBuilder(user, "task name").build());
+        Task task = new Task(user);
+        log.info("Creating task " + task.toString() + " for user " + user.toString());
+        return this.taskRepository.save(task);
     }
 
     @GetMapping("/{id}")
